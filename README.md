@@ -1,1 +1,2 @@
-# burger
+# Burger
+This project specifically shows Handlebars, MySQL and Express all working together in a simple app. Burger allows users to create a new burger which is sent to the database containing other burgers. The user also has the option to 'devour' the burger. If the user devours a burger, it is moved to the 'devoured' burger section.
