@@ -1,8 +1,72 @@
 <h1>Burgers</h1>
 <hr>
 
-<ul>
-    {{#each burgers}}
-        <li>{{burger_name}}</li>
-    {{/each}}
-</ul>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="">Undevoured</h1>
+            <div class="burgers undevoured">
+                {{#each burgers}}
+                    {{#unless devoured}}
+                        <div class="burger">
+                            <p>{{id}} - {{burger_name}}</p>
+                            <button class="btn btn-primary devour" data-id="{{id}}">Devour It</button>
+                        </div>
+                    {{/unless}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="col">
+            <h1>Devoured</h1>
+            <div class="burgers devoured">
+                {{#each burgers}}
+                    {{#if devoured}}
+                        <div class="burger">
+                            <p>{{id}} - {{burger_name}}</p>
+                        </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col">
+            <form>
+                <label>New Burger</label><input type="text" name="name" id="burgerName">
+                <button class="btn btn-primary newBurger">Create Burger</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('.devour').on("click", (event) => {
+        let element = event.target;
+        let id = $(element).attr('data-id');
+        console.log(id);
+        let dataObj = {
+            id: id,
+            devoured: 1
+        }
+        let postUrl = "/api/burgers/" + id;
+        $.ajax(postUrl, {
+            type: "PUT",
+            data: dataObj
+        }).then(
+            function() {
+                console.log('devoured burger');
+                location.reload();
+            }
+        );
+    });
+
+    $('.newBurger').on("click", () => {
+        $.ajax("/api/burgers", {
+            type: "POST",
+            data: { name: $('#burgerName').val() }
+        }).then(function() {
+            console.log('burger created');
+            location.reload();
+        })
+    });
+</script>

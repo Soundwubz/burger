@@ -15,10 +15,9 @@ var orm = {
             cb(result);
         });
     },
-    updateOne: function(valsObj, cb) {
-        let query = `UPDATE burgers SET burger_name=` + vals.name + `,
-         devoured=` + vals.devored ` WHERE id=` + vals.id;
-        connection.query(query, (err, result) => {
+    updateOne: function(vals, cb) {
+        let query = `UPDATE burgers SET devoured = ? WHERE id = ?`;
+        connection.query(query, vals, (err, result) => {
             if(err) throw err;
             cb(result);
         })
