@@ -61,12 +61,13 @@
     });
 
     $('.newBurger').on("click", () => {
+        let burgerName = $('#burgerName').val()
         $.ajax("/api/burgers", {
             type: "POST",
-            data: { name: $('#burgerName').val() }
+            data: { name: burgerName }
         }).then(function() {
             console.log('burger created');
-            location.reload();
+            location.replace('http://localhost:8080/');
         })
     });
 </script>
