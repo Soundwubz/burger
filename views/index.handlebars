@@ -60,8 +60,9 @@
         );
     });
 
-    $('.newBurger').on("click", () => {
-        let burgerName = $('#burgerName').val()
+    $('.newBurger').on("click", (e) => {
+        e.preventDefault();
+        let burgerName = $('#burgerName').val();
         $.ajax("/api/burgers", {
             type: "POST",
             data: { name: burgerName }
